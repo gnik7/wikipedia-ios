@@ -1,0 +1,80 @@
+// Messages for Karachay-Balkar (къарачай-малкъар)
+// Exported from translatewiki.net
+// Author: Ernác
+// Author: Iltever
+// Author: Къарачайлы
+
+// Fuzzy
+"about-contributors" = "авторла";
+"about-libraries-license" = "Лицензия";
+// Fuzzy
+"about-repositories" = "репозиторийле";
+// Fuzzy
+"about-testers" = "тестерле";
+"about-title" = "Юсюнден";
+"about-wikipedia" = "Википедия";
+"account-creation-logging-in" = "Системагъа кириу...";
+"account-creation-saving" = "Сакъланады…";
+// Fuzzy
+"article-languages-filter-placeholder" = "Тил фильтр";
+"article-languages-label" = "Тилни сайла";
+"button-next" = "Эндиги";
+// Fuzzy
+"edit-summary-choice-linked-words" = "Джибериулени къош";
+"history-clear-cancel" = "Ызына алыу";
+// Fuzzy
+"history-clear-confirmation-heading" = "Кёб болмагъан бютеу элементле кетерилсинлеми?";
+// Fuzzy
+"history-clear-delete-all" = "Барысын да кетер";
+"import-shared-reading-list-default-title" = "Мени окъургъа тизмем";
+"import-shared-reading-list-survey-prompt-button-cancel" = "Бусагъатда тюл";
+"import-shared-reading-list-survey-prompt-button-take-survey" = "Соруулаугъа къошул";
+"import-shared-reading-list-survey-prompt-footer" = "$1privacy Ташалыкъны юсюнден билдириу бла танышыгъыз$2. Соруулауну ючюнчю джаны къурагъанды. Аланы $3 ташалыкъ политикаларына къара$4.";
+"import-shared-reading-list-survey-prompt-subtitle" = "\"Окъургъа тизмелени джайыу\"  — тест функцияды, аны маджаллашдырырча неда кетерирча, бизге сизни багъаларыгъыз керекди.";
+"import-shared-reading-list-survey-prompt-title" = "\"Окъургъа тизмелени ортагъа салыу\" функцияны маджаллашдырыргъа болушаллыкъмысыз?";
+"import-shared-reading-list-title" = "Ортагъа салыннган окъургъа тизмени импорту";
+// Fuzzy
+"main-menu-about" = "«Википедия» къошакъ программаны юсюнден";
+// Fuzzy
+"main-menu-account-login" = "Системагъа кириу";
+"main-menu-account-logout" = "Чыгъыу";
+// Fuzzy
+"main-menu-heading-legal" = "Къатыш зат";
+"main-menu-nearby" = "Джууукъда";
+"main-menu-privacy-policy" = "Ташалыкъ политика";
+// Fuzzy
+"main-menu-rate-app" = "Къошакъ программагъа багъа бич";
+// Fuzzy
+"main-menu-terms-of-use" = "Хайырланыу шартла";
+"main-menu-title" = "Энтда";
+"main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
+"menu-cancel-accessibility-label" = "Ызына алыу";
+"navbar-title-mode-edit-wikitext-preview" = "Ал къарау";
+"nearby-distance-label-feet" = "$1 фут";
+"nearby-distance-label-km" = "$1 км";
+"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-miles" = "$1 миль";
+"search-did-you-mean" = "$1 излене болурму?";
+"search-field-placeholder-text" = "Википедияда излеу";
+"search-recent-clear-cancel" = "Ызына алыу";
+"search-recent-clear-delete-all" = "Барысын да кетер";
+"table-of-contents-heading" = "Контент";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 актив къошулуучу}}";
+"talk-page-collapse-thread-button" = "Сынджырны чырма";
+"talk-page-expand-thread-button" = "Теманы кер";
+"talk-page-onboarding-button-accessibility-label" = "Джууабха къайтыр ючюн эки кере бас";
+"talk-page-overflow-menu-accessibility" = "Сюзюу бетни къошакъ джарашдырыулары";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 джууаб}}";
+"talk-page-reply-button-accessibility-label" = "$1 джууаб бер";
+"talk-page-reply-depth-accessibility-label" = "Джууабны теренлиги: $1";
+"talk-page-rply-close-button-accessibility-hint" = "Джууабны кёргюзюуню джаб";
+"talk-page-topic-close-button-hint" = "Джангы теманы джаб";
+"talk-pages-topic-compose-body-placeholder-accessibility" = "Теманы ачыкълауу";
+"talk-pages-topic-reply-onboarding-body-ios15" = "Страницы обсуждения — это место, где $1люди обсуждают, как сделать контент в Википедии как можно лучше.$1 Добавьте новую тему для обсуждения, чтобы связаться и сотрудничать с сообществом википедистов.\nСюзюуню бетлери — $1people,  Википедияда контентни не къадар маджал къалай этерге керек болгъанын сюзген джерди. Википедиячыланы джамагъаты бла байламлы болуб, иш бирлик джюрютюр ючюн, $1 Сюзюуге джангы теманы къошугъуз.";
+"talk-pages-topic-reply-onboarding-body-note-ios15" = "Тилейбиз, джумушакъ болугъуз, барыбыз да мында адамбыз.";
+"vanish-modal-item" = "Джокъ болуугъа излемни джиберген эсегиз, излемигизни администратор джарашдыргъынчы, талай кюн сакълагъыз.";
+"vanish-modal-item-3" = "Джокъ болууну юсюнден къошакъ сорууларыгъыз бар эсе, бу бетге киригиз Meta:Right_to_vanish.";
+"vanish-modal-item-3-ios15" = "Джокъ болууну юсюнден къошакъ сорууларыгъыз бар эсе, бу бетге киригиз $1Meta:Right_to_vanish$2$3.";
+// Fuzzy
+"wikitext-upload-save" = "Сакъланады…";
+"wikitext-upload-save-sign-in" = "Кириу";
