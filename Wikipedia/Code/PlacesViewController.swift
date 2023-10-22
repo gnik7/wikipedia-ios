@@ -141,6 +141,12 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         return mapListToggle
     }()
     
+    // MARK: - DeepLink
+    @objc public var deepLinkCompletionHandler: (() -> Void)?
+    @objc public var viewDidOn = false
+    
+    // MARK: - Init
+    
     override func viewDidLoad() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
@@ -250,6 +256,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -713,6 +720,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updatePlaces(withSearchResults searchResults: [MWKSearchResult]) {
+        deepLinkCompletionHandler?()
+        
         if let searchSuggestionArticleURL = currentSearch?.searchResult?.articleURL(forSiteURL: siteURL),
             let searchSuggestionArticleKey = searchSuggestionArticleURL.wmf_databaseKey { // the user tapped an article in the search suggestions list, so we should select that
             articleKeyToSelect = searchSuggestionArticleKey
@@ -1939,6 +1948,54 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         recenterOnUserLocation(self)
     }
     
+    @objc func showPlaceWith(_ text: String) {
+
+        DispatchQueue.main.async {
+            self.searchBar.text = text
+            
+            self.deselectAllAnnotations()
+            self.isWaitingForSearchSuggestionUpdate = true
+            NSObject.cancelPreviousPerformRequests(withTarget: self)
+            self.updateSearchCompletionsFromSearchBarTextForTopArticles {
+                self.searchForFirstSearchSuggestion()
+            }
+        }
+        viewDidOn = true
+        deepLinkCompletionHandler = nil
+    }
+    
+    @objc func showPlace(coordinate latitude: CLLocationDegrees, longtitude: CLLocationDegrees) {
+        DispatchQueue.main.async {
+            let center = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.regroupArticlesIfNecessary(forVisibleRegion: self.mapView.region)
+            self.mapView.setRegion(region, animated: true)
+            
+            
+            self.deselectAllAnnotations()
+            self.isWaitingForSearchSuggestionUpdate = false
+            NSObject.cancelPreviousPerformRequests(withTarget: self)
+            
+            self.currentSearch = PlaceSearch(
+                    filter: PlaceFilterType.top,
+                    type: .location,
+                    origin: .system,
+                    sortStyle: .links,
+                    string: nil,
+                    region: region,
+                    localizedDescription: WMFLocalizedString("places-search-top-articles",
+                                                         value:"All top articles",
+                                                         comment:"A search suggestion for top articles"),
+                    searchResult: nil)
+            self.performDefaultSearchIfNecessary(withRegion: region)
+        }
+        
+       
+
+        viewDidOn = true
+        deepLinkCompletionHandler = nil
+    }
+    
     @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             view != nil else { // force view instantiation
@@ -1981,7 +2038,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
     }
     
-    func updateSearchCompletionsFromSearchBarTextForTopArticles() {
+    func updateSearchCompletionsFromSearchBarTextForTopArticles(completion: (() -> Void)? = nil) {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false
@@ -2023,6 +2080,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let newResults = locationSearchResults.results as [MWKSearchResult]
                         combinedResults.append(contentsOf: newResults)
                         _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                        
+                        completion?()
                     }
                 }) { (error) in }
             }

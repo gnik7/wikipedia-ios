@@ -1174,9 +1174,41 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.navigationController popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_linkURL;
             if (articleURL) {
-                // For "View on a map" action to succeed, view mode has to be set to map.
-                [[self placesViewController] updateViewModeToMap];
-                [[self placesViewController] showArticleURL:articleURL];
+                
+                NSString *placeName = articleURL.lastPathComponent;
+                if (!placeName || [placeName.lowercaseString isEqualToString:@"wiki"]) {
+                    // For "View on a map" action to succeed, view mode has to be set to map.
+                    [[self placesViewController] updateViewModeToMap];
+                    [[self placesViewController] showArticleURL:articleURL];
+                } else {
+                    if ([placeName rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound) {
+                        NSArray *items = [placeName componentsSeparatedByString:@"_"];
+                        if (items.count == 2) {
+                            NSArray *itemlat = [items[0] componentsSeparatedByString:@"="];
+                            NSArray *itemLong = [items[1] componentsSeparatedByString:@"="];
+                            double latitude = [itemlat[1] doubleValue];
+                            double longtitude = [itemLong[1] doubleValue];
+                            
+                            if (![self placesViewController].viewDidOn) {
+                                id __weak weakObject = self;
+                                self.placesViewController.deepLinkCompletionHandler = ^{
+                                    [[weakObject placesViewController] showPlaceWithCoordinate: latitude longtitude: longtitude];
+                                };
+                            } else {
+                                [[self placesViewController] showPlaceWithCoordinate: latitude longtitude: longtitude];
+                            }
+                        }
+                    } else {
+                        if (![self placesViewController].viewDidOn) {
+                            id __weak weakObject = self;
+                            self.placesViewController.deepLinkCompletionHandler = ^{
+                                [[weakObject placesViewController] showPlaceWith:placeName];
+                            };
+                        } else {
+                            [[self placesViewController] showPlaceWith:placeName];
+                        }
+                    }
+                }
             }
         } break;
         case WMFUserActivityTypeContent: {
